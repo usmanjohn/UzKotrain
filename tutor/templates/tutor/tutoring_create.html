@@ -1,11 +1,8 @@
-{% extends "topics/base.html" %}
-{% load crispy_forms_tags %}
-{% block content %}
-    <form method="POST" action="" novalidate>
-        {% csrf_token %}
-        {{ forms.media }}
-        {{ forms|crispy }}
-        <button type="submit" name = 'Submit'>Save</button>
-    </form>
-    
+{% extends "topics/base.html" %} {% load crispy_forms_tags %} {% block content
+%}
+<form method="POST" action="" novalidate>
+  {% csrf_token %} {{ forms.media }} {{ forms|crispy }}
+  <button type="submit" name="Submit">Joylash</button>
+</form>
+
 {% endblock content %}

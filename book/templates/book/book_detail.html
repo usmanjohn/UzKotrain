@@ -1,79 +1,110 @@
-{% extends "topics/base.html" %}
-{% block content %}
-{% load crispy_forms_tags %}
+{% extends "topics/base.html" %} {% block content %} {% load crispy_forms_tags
+%}
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <img src="{{ book.cover_image.url }}" class="img-fluid rounded mb-3" alt="{{ book.title }} Cover">
-        </div>
-        <div class="col-md-8">
-            <h2>{{ book.title }}</h2>
-            <p class="text-muted mb-2">By {{ book.author }}</p>
-            <p>{{ book.description }}</p>
-            <ul class="list-unstyled mb-4">
-                <li><strong>Pages:</strong> {{ book.num_of_pages }}</li>
-                <li><strong>Publication Year:</strong> {{ book.pub_year }}</li>
-                <li><strong>Category:</strong> {{ book.category.name }}</li>
-                <li><strong>Price:</strong> <span class="text-success">${{ book.prize }}</span></li>
-            </ul>
-            
-            <div class="button-group mb-3">
-                {% if is_in_cart %}
-                <form action="{% url 'remove-from-cart' book.id %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">Remove from Cart</button>
-                </form>
-                <a href="{% url 'cart-go' %}" class="btn btn-secondary btn-sm">Go to Cart</a>
-                {% else %}
-                <form action="{% url 'add-to-cart' book.id %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
-                </form>
-                {% endif %}
-            </div>
-
-            {% if request.user == book.uploader %}
-            <div>
-                <a href="{% url 'book-update' book.id %}" class="btn btn-info btn-sm">Edit</a>
-                <a href="{% url 'book-delete' book.id %}" class="btn btn-warning btn-sm">Delete</a>
-            </div>
-            {% endif %}
-            <hr>        
-                
-        </div>
-        {% if user_review_counts == 1 %}
-        <h4>{{user_review_counts}} Review </h4>
-        {% elif user_review_counts > 1 %}
-        <h4>{{user_review_counts}} Reviews </h4>
-        {% endif %}
-        <h5 class = 'text-warning'>{{ book.avg_rating }}</h5> 
-        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsereview" aria-expanded="false" aria-controls="collapseExample">
-            Add Review
-          </button>
-        <div class="collapse" id="collapsereview">
-            {% if user.is_authenticated %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-primary">Submit Review</button>
-                </form>
-                {% else %}
-                <a href="{% url 'login' %}?next={% firstof request.path '/' %}" class="btn btn-outline-primary me-2">Login to review</a>
-                {% endif %}
-        </div>
-      
-    {% for review in book.review.all %}
-            <div class="mb-3">
-                <strong>{{ review.reviewer.username }}</strong>
-                <span class="text-muted">{{ review.date|date:"M d, Y" }}</span>
-                <div>
-                    Rating: {% include "book/stars.html" with rating=review.rating %}
-                </div>
-                <p>Review: {{ review.review }}</p>
-            </div>
-        {% empty %}
-            <p>No reviews yet.</p>
-        {% endfor %}
+  <div class="row">
+    <div class="col-md-4">
+      <img
+        src="{{ book.cover_image.url }}"
+        class="img-fluid rounded mb-3"
+        alt="{{ book.title }} Cover"
+      />
     </div>
+    <div class="col-md-8">
+      <h2>{{ book.title }}</h2>
+      <p class="text-muted mb-2">By {{ book.author }}</p>
+      <p>{{ book.description }}</p>
+      <ul class="list-unstyled mb-4">
+        <li><strong>Varaq:</strong> {{ book.num_of_pages }}</li>
+        <li><strong>Yil (nashr):</strong> {{ book.pub_year }}</li>
+        <li><strong>Tur:</strong> {{ book.category.name }}</li>
+        <li>
+          <strong>Narx:</strong>
+          <span class="text-success">${{ book.prize }}</span>
+        </li>
+      </ul>
+
+      <div class="button-group mb-3">
+        {% if is_in_cart %}
+        <form
+          action="{% url 'remove-from-cart' book.id %}"
+          method="post"
+          class="d-inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">
+            Savatdan o'chirish
+          </button>
+        </form>
+        <a href="{% url 'cart-go' %}" class="btn btn-secondary btn-sm"
+          >Savatga borish</a
+        >
+        {% else %}
+        <form
+          action="{% url 'add-to-cart' book.id %}"
+          method="post"
+          class="d-inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary btn-sm">
+            Savatga qo'shish
+          </button>
+        </form>
+        {% endif %}
+      </div>
+
+      {% if request.user == book.uploader %}
+      <div>
+        <a href="{% url 'book-update' book.id %}" class="btn btn-info btn-sm"
+          >Tahrirlash</a
+        >
+        <a href="{% url 'book-delete' book.id %}" class="btn btn-warning btn-sm"
+          >O'chirish</a
+        >
+      </div>
+      {% endif %}
+      <hr />
+    </div>
+    {% if user_review_counts == 1 %}
+    <h4>{{user_review_counts}} Izoh</h4>
+    {% elif user_review_counts > 1 %}
+    <h4>{{user_review_counts}} Izohlar</h4>
+    {% endif %}
+    <h5 class="text-warning">{{ book.avg_rating }}</h5>
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapsereview"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      Izoh qo'shish
+    </button>
+    <div class="collapse" id="collapsereview">
+      {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %} {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Izohni joylash</button>
+      </form>
+      {% else %}
+      <a
+        href="{% url 'login' %}?next={% firstof request.path '/' %}"
+        class="btn btn-outline-primary me-2"
+        >Login to review</a
+      >
+      {% endif %}
+    </div>
+
+    {% for review in book.review.all %}
+    <div class="mb-3">
+      <strong>{{ review.reviewer.username }}</strong>
+      <span class="text-muted">{{ review.date|date:"M d, Y" }}</span>
+      <div>Baho: {% include "book/stars.html" with rating=review.rating %}</div>
+      <p>Izoh: {{ review.review }}</p>
+    </div>
+    {% empty %}
+    <p>Izohlar yo'q.</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock content %}

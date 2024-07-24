@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Question Details</h5>
+            <h5 class="card-title">Batafsil (Savollar) </h5>
             <p class="card-text">{{ question.question_text|safe }}</p>
             {% if question.question_type == 'MC' %}
                 <h6>Choices:</h6>
@@ -11,13 +11,13 @@
                     {% for choice in question.choice_set.all %}
                         <li {% if choice.is_correct %}class="text-success font-weight-bold"{% endif %}>
                             {{ choice.choice_text }}
-                            {% if choice.is_correct %} (Correct Answer){% endif %}
+                            {% if choice.is_correct %} (To'g'ri javob){% endif %}
                         </li>
                     {% endfor %}
                 </ul>
             {% endif %}
         </div>
     </div>
-    <a href="javascript:history.back()" class="btn btn-primary mt-3">Back to Results</a>
+    <a href="javascript:history.back()" class="btn btn-primary mt-3">Natijalarga qaytish</a>
 </div>
 {% endblock content %}

@@ -31,7 +31,7 @@
                             <textarea class="form-control {% if question.id in unanswered_questions %}is-invalid{% endif %}" name="question_{{ question.id }}" rows="3">{{ answered_texts|get_item:question.id }}</textarea>
                             {% if question.id in unanswered_questions %}
                                 <div class="invalid-feedback">
-                                    Please provide an answer for this question.
+                                    Savollarga javob bering!
                                 </div>
                             {% endif %}
                         </div>
@@ -42,10 +42,10 @@
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" name="save_results" value="yes" id="save_results">
             <label class="form-check-label" for="save_results">
-                Save my results
+                Natijalarni saqlash
             </label>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Submit Test</button>
+        <button type="submit" class="btn btn-primary btn-block">Yakunlash</button>
     </form>
 </div>
 

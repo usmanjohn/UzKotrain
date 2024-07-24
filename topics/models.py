@@ -37,6 +37,17 @@ class Topic(models.Model):
             # If no tags, add a default tag
             self.hashtag.add('general') 
 
+ 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .telegram_bot import send_topic_to_telegram
+
+
+@receiver(post_save, sender=Topic)
+def topic_created(sender, instance, created, **kwargs):
+    if created:
+        send_topic_to_telegram(instance)
+
 class SavedTopic(models.Model): 
     user = models.ForeignKey(User, related_name='saved_topics', on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, related_name='saved_by_users', on_delete=models.CASCADE)

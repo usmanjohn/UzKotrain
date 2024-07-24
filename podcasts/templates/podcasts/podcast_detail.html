@@ -1,14 +1,14 @@
 {% extends "topics/base.html" %}
 {% block content %}
 <div class="container mt-4">
-    <a href="{% url 'podcast-saved' %}" class="btn btn-light mb-3">Saved Podcasts</a>
+    <a href="{% url 'podcast-saved' %}" class="btn btn-light mb-3">Saqlangan podkastlar</a>
     <div class="card shadow">
         
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="card-title">{{ podcast.title }}</h5>
             {% if user.is_authenticated %}
             <button id="saveButton" onclick="toggleSave({{ podcast.pk }})" class="btn btn-outline-primary">
-                {% if is_saved %}Unsave{% else %}Save{% endif %}
+                {% if is_saved %}Olib tashlash{% else %}Saqlash{% endif %}
             </button>
             {% endif %}
         </div>
@@ -19,10 +19,10 @@
                 Your browser does not support the audio element.
             </audio>
             <ul class="list-unstyled mt-3">
-                <li><strong>Length:</strong> {{ podcast.length }} minutes</li>
-                <li><strong>Uploader:</strong> {{ podcast.audio_uploader.username }}</li>
-                <li><strong>Speaker:</strong> {{ podcast.speaker.username|default:"N/A" }}</li>
-                <li><strong>Published:</strong> {{ podcast.date_published|date:"M d, Y H:i" }}</li>
+                <li><strong>Davomiyligi:</strong> {{ podcast.length }} daqiqa</li>
+                <li><strong>Joyladi:</strong> {{ podcast.audio_uploader.username }}</li>
+                <li><strong>So'zlovchi:</strong> {{ podcast.speaker.username|default:"N/A" }}</li>
+                <li><strong>Joylandi:</strong> {{ podcast.date_published|date:"M d, Y H:i" }}</li>
             </ul>
         </div>
     </div>

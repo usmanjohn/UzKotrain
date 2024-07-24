@@ -34,8 +34,8 @@
 </style>
 
 <div class="container mt-4">
-    <h4 class="text-center mb-4">Podcasts</h4>
-    <a href="{% url 'podcast-saved' %}" class="btn btn-light mb-3">Saved Podcasts</a>
+    <h4 class="text-center mb-4">Podkastlar</h4>
+    <a href="{% url 'podcast-saved' %}" class="btn btn-light mb-3">Saqlangan Podkastlar</a>
     
     <div class="row" id="podcast-list">
         {% for podcast in page_obj %}
@@ -54,21 +54,21 @@
                     </div>
                     <div class="podcast-info">
                         <ul class="list-unstyled">
-                            <li><strong>Length:</strong> {{ podcast.length }} minutes</li>
-                            <li><strong>Uploader:</strong> {{ podcast.audio_uploader.username }}</li>
-                            <li><strong>Speaker:</strong> {{ podcast.speaker.username|default:"N/A" }}</li>
+                            <li><strong>Davomiyligi:</strong> {{ podcast.length }} daqiqa</li>
+                            <li><strong>Joyladi:</strong> {{ podcast.audio_uploader.username }}</li>
+                            <li><strong>So'zlovchi:</strong> {{ podcast.speaker.username|default:"N/A" }}</li>
                         </ul>
-                        <a href="{% url 'podcast-detail' podcast.id %}" class="btn btn-primary btn-sm mt-2">See more</a>
+                        <a href="{% url 'podcast-detail' podcast.id %}" class="btn btn-primary btn-sm mt-2">Batafsil</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <small>Published: {{ podcast.date_published|date:"M d, Y H:i" }}</small>
+                    <small>Joylandi: {{ podcast.date_published|date:"M d, Y H:i" }}</small>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="col-12">
-            <p class="text-center">No podcasts available yet.</p>
+            <p class="text-center">Hozircha Podkastlar mavjud emas.</p>
         </div>
         {% endfor %}
     </div>
@@ -77,15 +77,15 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; birinchi</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">oldingi</a></li>
             {% endif %}
 
-            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item disabled"><span class="page-link">{{ page_obj.paginator.num_pages }} dan {{ page_obj.number }} -chisi </span></li>
 
             {% if page_obj.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">keyingi</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">so'ngi &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>

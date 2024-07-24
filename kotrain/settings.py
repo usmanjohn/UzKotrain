@@ -15,7 +15,7 @@ environ.Env.read_env(os.path.join(Path(__file__).resolve().parent.parent, '.env'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_URL = env('BASE_URL')
 # Security settings
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'tutor',
     'job',
     'exam',
+    'bot',
 
     'storages',
     'crispy_forms',
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 ]
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHANNEL_ID = env('TELEGRAM_CHANNEL_ID')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

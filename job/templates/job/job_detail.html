@@ -17,25 +17,25 @@
                     <img src="{{ job.images.url }}" alt="{{ job.title }}" class="img-fluid rounded mb-3" style="max-height: 200px;">
                     <h5 class="card-title">{{ job.title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ job.hiring_company }}</h6>
-                    <p class="card-text"><strong>Position:</strong> {{ job.position }}</p>
-                    <p class="card-text"><strong>Salary:</strong> {% if job.salary %}${{ job.salary }}{% else %}Not specified{% endif %}</p>
+                    <p class="card-text"><strong>Lavozim :</strong> {{ job.position }}</p>
+                    <p class="card-text"><strong>Oylik:</strong> {% if job.salary %}${{ job.salary }}{% else %}Kelishiladi{% endif %}</p>
                 </div>
                 <div class="col-md-8">
-                    <h4>Job Description</h4>
+                    <h4>Ish haqida:</h4>
                     <p>{{ job.description|linebreaks }}</p>
                     
                     {% if job.role %}
-                    <h5>Role</h5>
+                    <h5>Mas'uliyat:</h5>
                     <p>{{ job.role|linebreaks }}</p>
                     {% endif %}
 
                     {% if job.required_skills %}
-                    <h5>Required Skills</h5>
+                    <h5>Kerakli ko'nikmalar</h5>
                     <p>{{ job.required_skills|linebreaks }}</p>
                     {% endif %}
 
                     {% if job.required_tools %}
-                    <h5>Required Tools</h5>
+                    <h5>Kerakli dastaklar </h5>
                     <p>{{ job.required_tools|linebreaks }}</p>
                     {% endif %}
                 </div>
@@ -44,20 +44,20 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Posted by:</strong> 
+                    <p><strong>Joyladi:</strong> 
                         <a href="{% url 'profile' job.uploader.username %}">{{ job.uploader.username }}</a></p>
-                    <p><strong>Date Posted:</strong> {{ job.date_posted }}</p>
+                    <p><strong>Joylandi:</strong> {{ job.date_posted }}</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     {% if job.deadline %}
-                    <p><strong>Application Deadline:</strong> {{ job.deadline }}</p>
+                    <p><strong>Topshirishning oxirgi muddati:</strong> {{ job.deadline }}</p>
                     {% endif %}
                     {% if user == job.uploader %}
-                    <a href="{% url 'job-update' job.pk %}" class="btn btn-primary">Update</a>
-                    <a href="{% url 'job-delete' job.pk %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'job-update' job.pk %}" class="btn btn-primary">Tahrirlash</a>
+                    <a href="{% url 'job-delete' job.pk %}" class="btn btn-danger">O'chirish</a>
                     {% endif %}
                     {% if job.company_links %}
-                    <a href="{{ job.company_links }}" target="_blank" class="btn btn-info">Company Website</a>
+                    <a href="{{ job.company_links }}" target="_blank" class="btn btn-info">Komaniya veb-sayti</a>
                     {% endif %}
                 </div>
             </div>

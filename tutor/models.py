@@ -27,6 +27,19 @@ class Tutoring(models.Model):
     date = models.DateField(auto_now_add=True)    
     tags = TaggableManager(blank=True)
 
+    def __str__(self) -> str:
+        return self.title
+    
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .telegram_bot import send_topic_to_telegram
+
+
+@receiver(post_save, sender=Tutoring)
+def topic_created(sender, instance, created, **kwargs):
+    if created:
+        send_topic_to_telegram(instance)
+
 class SavedTutorial(models.Model): 
     user = models.ForeignKey(User, related_name='saved_tutorials', on_delete=models.CASCADE)
     tutorial = models.ForeignKey(Tutoring, related_name='saved_by_users', on_delete=models.CASCADE)

@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class TopicsConfig(AppConfig):
+class BotConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'topics'
+    name = 'bot'
     def ready(self):
-        import topics.signals
+        import bot.signals
